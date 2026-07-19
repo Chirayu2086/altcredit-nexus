@@ -19,27 +19,19 @@ class CreditGNN(torch.nn.Module):
         x = self.dropout(x)
         x = F.relu(self.conv2(x, edge_index))
         x = self.dropout(x)
-        x = self.fc1(x.mean(dim=0))   # Graph-level pooling
+        x = self.fc1(x.mean(dim=0))
         x = F.relu(x)
         x = self.fc2(x)
         return torch.sigmoid(x)
 
 def build_mock_graph(features: dict):
-    """Create mock graph from user features"""
     num_nodes = 5
-    x = torch.rand(num_nodes, 8) * 0.6   # Base features
-    
-    # Inject real features
+    x = torch.rand(num_nodes, 8) * 0.6
     if 'upi_velocity' in features:
         x[0, 0] = features['upi_velocity']
     if 'gst_filings' in features:
         x[0, 1] = features['gst_filings']
     
-    # Edges: user connected to merchants
-    edge_index = torch.tensor([
-        [0, 0, 0, 0],   # User
-        [1, 2, 3, 4]    # Merchants
-    ], dtype=torch.long)
-    
+    edge_index = torch.tensor([[0,0,0,0],[1,2,3,4]], dtype=torch.long)
     data = Data(x=x, edge_index=edge_index)
     return T.NormalizeFeatures()(data)
