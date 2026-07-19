@@ -1,0 +1,16 @@
+{
+  "user1": {
+    "upi_velocity": 0.85,
+    "gst_filings": 0.92,
+    "utility_consistency": 0.78,
+    "device_score": 0.88,
+    "transaction_count": 145
+  },
+  "user2": {
+    "upi_velocity": 0.45,
+    "gst_filings": 0.60,
+    "utility_consistency": 0.55,
+    "device_score": 0.65,
+    "transaction_count": 45
+  }
+}
